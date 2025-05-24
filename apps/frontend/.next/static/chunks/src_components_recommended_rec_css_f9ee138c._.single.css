@@ -1,0 +1,27 @@
+/* [project]/src/components/recommended/rec.css [app-client] (css) */
+.Recommendation {
+  display: flex;
+}
+
+.Recommendation ul {
+  column-gap: 56px;
+  display: flex;
+}
+
+.Recommendation img {
+  border-radius: 8px;
+}
+
+.Recommendation span {
+  padding-top: 21px;
+  padding-bottom: 21px;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+.rec-categories {
+  padding-bottom: 21px;
+}
+
+/*# sourceMappingURL=src_components_recommended_rec_css_f9ee138c._.single.css.map*/

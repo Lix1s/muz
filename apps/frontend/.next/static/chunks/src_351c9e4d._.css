@@ -1,0 +1,244 @@
+/* [project]/src/components/advertisement/ad.css [app-client] (css) */
+.advert span {
+  margin-bottom: 21px;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+
+/* [project]/src/widgets/catalog-items/ui/catalog-items.css [app-client] (css) */
+.card {
+  background-color: #fff;
+  border: 1px solid #d3d3d3;
+  border-radius: 8px;
+  width: 336px;
+  height: 497px;
+  margin-bottom: 20px;
+  padding: 15px;
+  transition: all .3s;
+}
+
+.card:hover {
+  transition: all .3s;
+  transform: translate(0, -10px);
+  box-shadow: .01px .01px 6px #5c5c5c;
+}
+
+.card p {
+  color: #868686;
+  padding-top: 25px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.card span {
+  color: #000;
+  padding-top: 11px;
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.card b {
+  color: #000;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.Products span {
+  margin-bottom: 25px;
+  padding-top: 21px;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+.Products a {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+}
+
+.textBtn {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  column-gap: 13px;
+  font-size: 23px;
+  font-weight: 400;
+  display: flex;
+}
+
+.add {
+  text-align: center;
+  color: #e6e6e6;
+  border-radius: 14px;
+  justify-content: center;
+  align-items: center;
+  width: 302px;
+  height: 42px;
+  transition: all .3s;
+  display: flex;
+  position: absolute;
+}
+
+.add:hover {
+  border-radius: 8px;
+  transition: all .3s;
+}
+
+.img {
+  background-color: #fff;
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  width: 303px;
+  height: 270px;
+  display: flex;
+}
+
+.img2 {
+  justify-content: center;
+  align-items: center;
+  width: 303px;
+  height: 52px;
+  display: flex;
+}
+
+.tovary {
+  flex-wrap: wrap;
+  column-gap: 12px;
+  display: flex;
+}
+
+
+/* [project]/src/widgets/ex-header/ui/ex-header.css [app-client] (css) */
+.ex_content {
+  align-items: center;
+  column-gap: 110px;
+  padding-top: 20px;
+  padding-left: 160px;
+  display: flex;
+}
+
+.ex_instruments {
+  column-gap: 40px;
+  display: flex;
+}
+
+.ex_instruments span {
+  letter-spacing: .03em;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.search {
+  background: #fff;
+  border-radius: 8px;
+  justify-content: space-between;
+  align-items: center;
+  width: 791px;
+  height: 42px;
+  padding-left: 15px;
+  display: flex;
+  box-shadow: 0 0 0 2px #0098c8;
+}
+
+.search .input {
+  text-align: center;
+  width: 791px;
+  height: 42px;
+  display: flex;
+}
+
+.searchbt button {
+  cursor: pointer;
+  background: linear-gradient(#0098c8, #2ecfff);
+  border-radius: 0 8px 8px 0;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  position: relative;
+}
+
+.metronom, .tuner {
+  align-items: center;
+  display: flex;
+}
+
+.search img {
+  z-index: 999;
+  cursor: pointer;
+  padding: 9px 13px;
+  display: flex;
+  position: absolute;
+}
+
+
+/* [project]/src/features/banner/ui/banner.css [app-client] (css) */
+.banner {
+  text-align: center;
+  align-items: center;
+  padding-top: 33px;
+  display: flex;
+}
+
+.btn-start {
+  border-radius: 21px;
+  align-items: center;
+  width: 360px;
+  height: 110px;
+  margin-top: 290px;
+  margin-left: 35px;
+  line-height: 40px;
+  display: flex;
+  position: absolute;
+}
+
+.start-buy {
+  text-align: left;
+  color: #fff;
+  float: left;
+  word-break: normal;
+  font-size: 38px;
+  font-weight: bolder;
+  display: flex;
+}
+
+.arrow {
+  padding-right: 35px;
+  display: flex;
+}
+
+
+/* [project]/src/components/recommended/rec.css [app-client] (css) */
+.Recommendation {
+  display: flex;
+}
+
+.Recommendation ul {
+  column-gap: 56px;
+  display: flex;
+}
+
+.Recommendation img {
+  border-radius: 8px;
+}
+
+.Recommendation span {
+  padding-top: 21px;
+  padding-bottom: 21px;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+.rec-categories {
+  padding-bottom: 21px;
+}
+
+
+/*# sourceMappingURL=src_351c9e4d._.css.map*/
