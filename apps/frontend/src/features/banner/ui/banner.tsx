@@ -1,6 +1,8 @@
+
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import './banner.css';
+import Link from 'next/link';
 
 export const Banner = () => {
   return (
@@ -8,14 +10,16 @@ export const Banner = () => {
       <div className="container">
         <div className="start-buy">
           <div className="banners">
-            <img src="img/pic/rasprodazha1.svg" alt="banner" />
+            <img src='/pic/banner-unbutton.svg'></img>
+               <button className='btn-start'>
+                <Link href='/catalog' >
+                   <img src='/pic/start-buy.svg' alt="banner" />
+                   </Link>
+                </button>
+            {/* <img src="img/pic/rasprodazha1.svg" alt="banner" /> */}
             {/* <img src='img/pic/ad-takamine.svg' alt="banner" /> */}
           </div>
-          {/* <button className='btn-start'>
-                <Link to='/catalog' >
-                   <img src='img/pic/start-buy.svg' alt="banner" />
-                   </Link>
-                </button> */}
+       
         </div>
       </div>
     </section>

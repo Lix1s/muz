@@ -10,6 +10,7 @@ export interface CartItem extends Item {
   quantity: number;
 }
 
+
 export interface ContextType {
   items: Item[];
   cartItems: CartItem[];
@@ -24,6 +25,10 @@ export interface ContextType {
   setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
   loading: boolean;
   error: string | null;
+  favorites: Item[];
+  addToFavorites: (item: Item) => void;
+  removeFromFavorites: (id: string) => void;
+  isItemInFavorites: (id: string) => boolean;
 }
 
 // const value = {

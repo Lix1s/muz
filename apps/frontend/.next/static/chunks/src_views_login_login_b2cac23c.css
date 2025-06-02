@@ -1,0 +1,95 @@
+/* [project]/src/views/login/login.css [app-client] (css) */
+.preview {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  max-width: 480px;
+}
+
+.Login {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 690px;
+  padding-top: 100px;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+}
+
+.registration-cssave {
+  justify-content: center;
+  align-items: center;
+  padding: 30px 70px;
+  display: flex;
+}
+
+.registration-cssave form {
+  background-color: #fff;
+  border-radius: 10px;
+  max-width: 800px;
+  padding: 15px 50px 25px;
+  box-shadow: 4px 4px 15px #0003;
+}
+
+.registration-cssave form h3 {
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+.registration-cssave .create-account {
+  color: #fff;
+  background-color: #0098c8;
+  border: none;
+  border-radius: 30px;
+  max-width: 220px;
+  margin-top: 20px;
+  padding: 10px 70px;
+  font-size: 18px;
+  font-weight: bold;
+  transition: all .2s ease-in-out;
+}
+
+.registration-cssave .create-account:hover {
+  background-color: #00a4d6;
+}
+
+@media (width <= 576px) {
+  .registration-cssave form {
+    padding: 50px 20px;
+  }
+}
+
+.text-center {
+  font-size: 23px;
+}
+
+.form-group {
+  padding-top: 30px;
+}
+
+.form-control-item {
+  border: 1.5px solid #f0f0f0;
+  border-radius: 4px;
+  outline: none;
+  padding: 10px;
+  transition: border-color .3s;
+}
+
+.form-control-item:focus {
+  border-color: #0098c8;
+}
+
+.register-link span {
+  color: #0098c8;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.register {
+  color: #000;
+  font-size: 14px;
+}
+
+
+/*# sourceMappingURL=src_views_login_login_b2cac23c.css.map*/

@@ -1,0 +1,122 @@
+/* [project]/src/views/admin/admin.css [app-client] (css) */
+.prei {
+  margin-bottom: 15px;
+  padding-left: 10px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.admin {
+  background-color: #f9f9f9;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.crud-section {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+h2 {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.form-control-item {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  display: block;
+}
+
+.delete-method-selector {
+  margin-bottom: 10px;
+}
+
+.delete-method-selector label {
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.delete-method-selector input {
+  margin-right: 5px;
+}
+
+.form-control-item:focus {
+  border: 1px solid #0098c8;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  display: block;
+}
+
+.CRUD-btn {
+  color: #fff;
+  cursor: pointer;
+  background-color: #0098c8;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+}
+
+.CRUD-btn:hover {
+  background-color: #0184ac;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+}
+
+li .id {
+  padding-left: 10px;
+}
+
+img {
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.product-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.product-table th, .product-table td {
+  text-align: left;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.product-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.check {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+.form-control-item {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+
+/*# sourceMappingURL=src_views_admin_admin_4f67f6bf.css.map*/

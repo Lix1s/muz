@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/components/emailVerification/verification.css"],"sourcesContent":[".verification-container {\n  max-width: 400px;\n  margin: 2rem auto;\n  padding: 2rem;\n  border-radius: 8px;\n  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);\n  background: white;\n}\n\n.verification-form {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n}\n\n.verification-input {\n  padding: 0.75rem;\n  border: 1px solid #ddd;\n  border-radius: 4px;\n  font-size: 1rem;\n}\n\n.verification-button {\n  padding: 0.75rem;\n  background: #0070f3;\n  color: white;\n  border: none;\n  border-radius: 4px;\n  cursor: pointer;\n  font-size: 1rem;\n}\n\n.verification-button:disabled {\n  background: #ccc;\n  cursor: not-allowed;\n}\n\n.verification-error {\n  color: #ff0000;\n  margin-top: 0.5rem;\n}\n\n.verification-footer {\n  margin-top: 1rem;\n  text-align: center;\n}\n\n.verification-link {\n  background: none;\n  border: none;\n  color: #0070f3;\n  cursor: pointer;\n  text-decoration: underline;\n}"],"names":[],"mappings":"AAAA;;;;;;;;;AASA;;;;;;AAMA;;;;;;;AAOA;;;;;;;;;;AAUA;;;;;AAKA;;;;;AAKA;;;;;AAKA"}}]
+}

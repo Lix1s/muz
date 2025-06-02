@@ -1,5 +1,6 @@
+import Link from 'next/link';
 import './checkout.css';
-import { Link } from 'react-router-dom';
+
 
 
 const CheckOut = () => {
@@ -9,9 +10,9 @@ const CheckOut = () => {
         <div className="bye">
           <div className="text1">
             <p>Спасибо за покупку!</p>
-            <p>Чек отправлен на вашу почту!</p>
+            <p>Мы ждем вас!</p>
           </div>
-          <Link to="/" className="back">
+          <Link href="/" className="back">
             Вернуться на сайт
           </Link>
         </div>

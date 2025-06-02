@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["file:///app/apps/frontend/src/views/CheckOut/checkout.css"],"sourcesContent":[".checkout {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column; /* Расположить элементы вертикально */\n  text-align: center;\n  height: 100vh; /* Занять всю высоту экрана */\n  padding: 20px;\n}\n\n.bye {\n  max-width: 600px;\n}\n\n.text1 {\n  font-size: 24px;\n  line-height: 1.5;\n  margin-bottom: 20px; /* Отступ между текстом и кнопкой */\n}\n\n.text1 p {\n  margin: 10px 0;\n}\n\n.back {\n  display: inline-block; /* Кнопка занимает минимальную ширину */\n  padding: 10px 20px;\n  background-color: #0098c8;\n  color: white;\n  text-decoration: none;\n  border: none;\n  border-radius: 5px;\n  cursor: pointer;\n  font-size: 16px;\n  transition: background-color 0.3s ease;\n}\n\n.back:hover {\n  background-color: #007ea6;\n}\n\n.back a {\n  color: white;\n  text-decoration: none;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;;;;AAUA;;;;AAIA;;;;;;AAMA;;;;AAIA;;;;;;;;;;;;;AAaA;;;;AAIA","debugId":null}}]
+}

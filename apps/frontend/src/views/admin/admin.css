@@ -37,6 +37,19 @@ h2 {
   border-radius: 4px;
 }
 
+.delete-method-selector {
+  margin-bottom: 10px;
+}
+
+.delete-method-selector label {
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.delete-method-selector input {
+  margin-right: 5px;
+}
+
 .form-control-item:focus {
   display: block;
   margin-bottom: 10px;

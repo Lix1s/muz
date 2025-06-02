@@ -1,0 +1,57 @@
+/* [project]/src/components/emailVerification/verification.css [app-client] (css) */
+.verification-container {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  box-shadow: 0 2px 10px #0000001a;
+}
+
+.verification-form {
+  flex-direction: column;
+  gap: 1rem;
+  display: flex;
+}
+
+.verification-input {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: .75rem;
+  font-size: 1rem;
+}
+
+.verification-button {
+  color: #fff;
+  cursor: pointer;
+  background: #0070f3;
+  border: none;
+  border-radius: 4px;
+  padding: .75rem;
+  font-size: 1rem;
+}
+
+.verification-button:disabled {
+  cursor: not-allowed;
+  background: #ccc;
+}
+
+.verification-error {
+  color: red;
+  margin-top: .5rem;
+}
+
+.verification-footer {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.verification-link {
+  color: #0070f3;
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+}
+
+/*# sourceMappingURL=src_components_emailVerification_verification_css_f9ee138c._.single.css.map*/

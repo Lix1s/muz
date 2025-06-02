@@ -1,90 +1,120 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchAuthMe } from '../../redux/slices/auth';
+'use client'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAuthMe } from '../../redux/slices/auth'
+import { AppDispatch, RootState } from '../../redux/store'
+import Link from 'next/link'
+import './profile.css'
 
-import './profile.css';
+interface UserData {
+  avatarUrl?: string
+  fullName?: string
+  email?: string
+  orders?: Array<{
+    id: string
+    date: string
+    status: string
+    total: number
+  }>
+}
 
 const Profile = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>()
+  const { data: userData, status } = useSelector((state: RootState) => state.auth)
 
-  // Получаем информацию о пользователе из Redux
-  const userData = useSelector((state) => state.auth.data);
-  const status = useSelector((state) => state.auth.status);
-
-  // При монтировании компонента, отправляем запрос для получения данных пользователя
   useEffect(() => {
-    if (status === 'loading') {
-      dispatch(fetchAuthMe());
+    if (status === 'idle') {
+      dispatch(fetchAuthMe())
     }
-  }, [dispatch, status]);
+  }, [dispatch, status])
 
-  // Если данные загружаются, показываем спиннер или сообщение о загрузке
-  if (status === 'loading') {
-    return <div className="loading">Загрузка...</div>;
+  const handleLogout = () => {
+    localStorage.removeItem('token')
+    window.location.href = '/login'
   }
 
-  // Если возникла ошибка или данные не найдены, показываем ошибку
+  if (status === 'loading') {
+    return (
+      <div className="profile">
+        <div className="container">
+          <div className="loading">Загрузка...</div>
+        </div>
+      </div>
+    )
+  }
+
   if (status === 'error' || !userData) {
-    return <p>Данные пользователя не найдены</p>;
+    return (
+      <div className="profile">
+        <div className="container">
+          <p className="error-message">Данные пользователя не найдены</p>
+          <Link href="/login" className="auth-link">
+            Войти в аккаунт
+          </Link>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <>
-      <div className="profile">
-        <div className="container">
-          <div className="profile-card">
-            <div className="profile-header">
-              <div className="profile-avatar-container">
-                <img
-                  src={userData.avatarUrl || 'img/icons/logo.svg'}
-                  alt="User Avatar"
-                  className="profile-avatar"
-                />
+    <div className="profile">
+      <div className="container">
+        <div className="profile-card">
+          <div className="profile-header">
+            <div className="profile-avatar-container">
+              <img
+                src='/logo/NewLogo4.png'
+                alt="User Avatar"
+                className="profile-avatar"
+               
+              />
+            </div>
+            <div className="profile-details">
+              <div className="profile-item">
+              
               </div>
-              <div className="profile-details">
-                <div className="profile-item">
-                  <label className="profile-label">Логин:</label>
-                  <h1 className="profile-name">{userData.fullName || 'Имя пользователя'}</h1>
-                </div>
-                <div className="profile-item">
-                  <label className="profile-label">Email:</label>
-                  <p className="profile-email">{userData.email || 'example@mail.com'}</p>
-                </div>
-              </div>
-              <div className="profile-actions">
-                <button className="btn edit-btn">Редактировать профиль</button>
-                <button className="btn logout-btn">Выйти из аккаунта</button>
+              <div className="profile-item">
+                <label className="profile-label"><b>Email:</b></label>
+                <p className="profile-email">{userData.email || 'kirill.wep@gmail.com'}</p>
               </div>
             </div>
+            <div className="profile-actions">
+              {/* <Link href="/profile/edit" className="btn edit-btn">
+                Редактировать профиль
+              </Link> */}
+              <button className="btn logout-btn" onClick={handleLogout}>
+                Выйти из аккаунта
+              </button>
+            </div>
+          </div>
 
-            <div className="profile-orders">
-              <h2 className="orders-title">Ваши заказы</h2>
+          <div className="profile-orders">
+            <h2 className="orders-title">Ваши заказы</h2>
+            {userData.orders?.length ? (
               <div className="orders-list">
-                {/* Пример заказа */}
-                <div className="order-item">
-                  <div className="order-details">
-                    <span className="order-date">10.12.2024</span>
-                    <span className="order-status">В процессе</span>
-                    <span className="order-total">Сумма: 3500 ₽</span>
+                {userData.orders.map((order) => (
+                  <div className="order-item" key={order.id}>
+                    <div className="order-details">
+                      <span className="order-date">{order.date}</span>
+                      <span className={`order-status ${order.status.toLowerCase()}`}>
+                        {order.status}
+                      </span>
+                      <span className="order-total">Сумма: {order.total} ₽</span>
+                    </div>
+                    <Link href={`/orders/${order.id}`} className="order-link">
+                      Подробнее
+                    </Link>
                   </div>
-                </div>
-                <div className="order-item">
-                  <div className="order-details">
-                    <span className="order-date">05.12.2024</span>
-                    <span className="order-status">Доставлено</span>
-                    <span className="order-total">Сумма: 5000 ₽</span>
-                  </div>
-                </div>
+                ))}
               </div>
-
+            ) : (
               <p className="no-orders">У вас нет заказов</p>
-            </div>
+            )}
           </div>
         </div>
       </div>
-      
-    </>
-  );
-};
+    </div>
+  )
+}
 
-export default Profile;
+export default Profile

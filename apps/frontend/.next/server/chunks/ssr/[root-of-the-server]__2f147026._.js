@@ -107,7 +107,7 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 ;
 const instance = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].create({
-    baseURL: 'http://localhost:4444'
+    baseURL: 'http://localhost:3002'
 });
 instance.interceptors.request.use((config)=>{
     config.headers.Authorization = window.localStorage.getItem('token');
@@ -122,31 +122,64 @@ var { g: global, __dirname } = __turbopack_context__;
 {
 __turbopack_context__.s({
     "authReducer": (()=>authReducer),
+    "clearError": (()=>clearError),
     "fetchAuth": (()=>fetchAuth),
     "fetchAuthMe": (()=>fetchAuthMe),
     "fetchRegister": (()=>fetchRegister),
     "logout": (()=>logout),
+    "selectAuthError": (()=>selectAuthError),
+    "selectAuthStatus": (()=>selectAuthStatus),
     "selectIsAuth": (()=>selectIsAuth)
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs [app-ssr] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/axios.ts [app-ssr] (ecmascript)");
 ;
 ;
-const fetchAuth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchAuth', async (params)=>{
-    const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post('/auth/login', params);
-    return data;
+const fetchAuth = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchAuth', async (params, { rejectWithValue })=>{
+    try {
+        const response = await fetch('http://localhost:3002/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: params.email,
+                password: params.password
+            })
+        });
+        if (!response.ok) {
+            const error = await response.json();
+            return rejectWithValue(error);
+        }
+        return await response.json();
+    } catch (err) {
+        return rejectWithValue(err.message);
+    }
 });
-const fetchRegister = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchRegister', async (params)=>{
-    const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post('/auth/register', params);
-    return data;
+const fetchRegister = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchRegister', async (params, { rejectWithValue })=>{
+    try {
+        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].post('/api/auth/register', {
+            email: params.email,
+            password: params.password,
+            confirmPassword: params.confirmPassword
+        });
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response?.data);
+    }
 });
-const fetchAuthMe = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchAuthMe', async ()=>{
-    const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get('/auth/me');
-    return data;
+const fetchAuthMe = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createAsyncThunk"])('auth/fetchAuthMe', async (_, { rejectWithValue })=>{
+    try {
+        const { data } = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$axios$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get('/auth/me');
+        return data;
+    } catch (err) {
+        return rejectWithValue(err.response.data);
+    }
 });
 const initialState = {
     data: null,
-    status: 'loading'
+    status: 'idle',
+    error: null
 };
 const authSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: 'auth',
@@ -154,42 +187,34 @@ const authSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modul
     reducers: {
         logout: (state)=>{
             state.data = null;
+            state.status = 'idle';
+            state.error = null;
+        },
+        clearError: (state)=>{
+            state.error = null;
         }
     },
     extraReducers: (builder)=>{
-        builder.addCase(fetchAuth.pending, (state)=>{
+        builder// Общие обработчики для всех запросов
+        .addMatcher((action)=>action.type.endsWith('/pending'), (state)=>{
             state.status = 'loading';
-            state.data = null;
-        }).addCase(fetchAuth.fulfilled, (state, action)=>{
-            state.status = 'loaded';
+            state.error = null;
+        })// Обработчики для успешных запросов
+        .addMatcher((action)=>action.type.endsWith('/fulfilled'), (state, action)=>{
+            state.status = 'succeeded';
             state.data = action.payload;
-        }).addCase(fetchAuth.rejected, (state)=>{
-            state.status = 'error';
-            state.data = null;
-        }).addCase(fetchAuthMe.pending, (state)=>{
-            state.status = 'loading';
-            state.data = null;
-        }).addCase(fetchAuthMe.fulfilled, (state, action)=>{
-            state.status = 'loaded';
-            state.data = action.payload;
-        }).addCase(fetchAuthMe.rejected, (state)=>{
-            state.status = 'error';
-            state.data = null;
-        }).addCase(fetchRegister.pending, (state)=>{
-            state.status = 'loading';
-            state.data = null;
-        }).addCase(fetchRegister.fulfilled, (state, action)=>{
-            state.status = 'loaded';
-            state.data = action.payload;
-        }).addCase(fetchRegister.rejected, (state)=>{
-            state.status = 'error';
-            state.data = null;
+        })// Обработчики для ошибок
+        .addMatcher((action)=>action.type.endsWith('/rejected'), (state, action)=>{
+            state.status = 'failed';
+            state.error = action.payload?.message || 'Произошла ошибка';
         });
     }
 });
 const selectIsAuth = (state)=>Boolean(state.auth.data);
+const selectAuthError = (state)=>state.auth.error;
+const selectAuthStatus = (state)=>state.auth.status;
+const { logout, clearError } = authSlice.actions;
 const authReducer = authSlice.reducer;
-const { logout } = authSlice.actions;
 }}),
 "[externals]/next/dist/server/app-render/work-async-storage.external.js [external] (next/dist/server/app-render/work-async-storage.external.js, cjs)": (function(__turbopack_context__) {
 
@@ -254,12 +279,12 @@ function Header() {
                             className: "header__logo",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: "/icons/NewLogo4.png",
+                                    src: "/logo/NewLogo4.png",
                                     alt: "Logo"
                                 }, void 0, false, {
                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
                                     lineNumber: 29,
-                                    columnNumber: 15
+                                    columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/",
@@ -356,13 +381,13 @@ function Header() {
                                 children: isAuth ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                            href: "/cart",
+                                            href: "/favourite",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 className: "trash_can",
                                                 children: [
-                                                    "Корзина",
+                                                    "Избранное",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                                        src: "/icons/cartIcon.png",
+                                                        src: "/icons/favourite.svg",
                                                         alt: "can"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/widgets/header/ui/header.tsx",
@@ -378,6 +403,31 @@ function Header() {
                                         }, void 0, false, {
                                             fileName: "[project]/src/widgets/header/ui/header.tsx",
                                             lineNumber: 56,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/cart",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                className: "trash_can",
+                                                children: [
+                                                    "Корзина",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                        src: "/icons/cartIcon.png",
+                                                        alt: "can"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                                        lineNumber: 66,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                                lineNumber: 64,
+                                                columnNumber: 23
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                            lineNumber: 63,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -391,17 +441,17 @@ function Header() {
                                                             children: "Выйти"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                            lineNumber: 65,
+                                                            lineNumber: 72,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                        lineNumber: 64,
+                                                        lineNumber: 71,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 63,
+                                                    lineNumber: 70,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -411,23 +461,48 @@ function Header() {
                                                         alt: "can"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                        lineNumber: 69,
+                                                        lineNumber: 76,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 68,
+                                                    lineNumber: 75,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                            lineNumber: 62,
+                                            lineNumber: 69,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                            href: "/favourite",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                className: "trash_can",
+                                                children: [
+                                                    "Избранное",
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                        src: "/icons/favourite.svg",
+                                                        alt: "can"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                                        lineNumber: 85,
+                                                        columnNumber: 25
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                                lineNumber: 83,
+                                                columnNumber: 23
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/widgets/header/ui/header.tsx",
+                                            lineNumber: 82,
+                                            columnNumber: 19
+                                        }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             className: "trash_can",
                                             children: [
@@ -436,7 +511,7 @@ function Header() {
                                                     children: "Корзина "
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 76,
+                                                    lineNumber: 89,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -444,13 +519,13 @@ function Header() {
                                                     alt: "can"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 77,
+                                                    lineNumber: 90,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                            lineNumber: 75,
+                                            lineNumber: 88,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -462,12 +537,12 @@ function Header() {
                                                         children: "Войти"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                        lineNumber: 82,
+                                                        lineNumber: 95,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 81,
+                                                    lineNumber: 94,
                                                     columnNumber: 23
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
@@ -475,13 +550,13 @@ function Header() {
                                                     alt: "can"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                                    lineNumber: 84,
+                                                    lineNumber: 97,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/widgets/header/ui/header.tsx",
-                                            lineNumber: 80,
+                                            lineNumber: 93,
                                             columnNumber: 21
                                         }, this)
                                     ]
@@ -538,7 +613,7 @@ const initialState = {
 const productsSlice = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$reduxjs$2f$toolkit$2f$dist$2f$redux$2d$toolkit$2e$modern$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createSlice"])({
     name: 'products',
     initialState,
-    reducer: {}
+    reducers: {}
 });
 const productsReducer = productsSlice.reducer;
 }}),
@@ -617,7 +692,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axios$2f$lib$2f$axios$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/axios/lib/axios.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$shared$2f$utils$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/src/shared/utils/index.ts [app-ssr] (ecmascript) <module evaluation>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$shared$2f$utils$2f$context$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/shared/utils/context.ts [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$cookie$2f$dist$2f$js$2e$cookie$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/js-cookie/dist/js.cookie.mjs [app-ssr] (ecmascript)");
 "use client";
+;
 ;
 ;
 ;
@@ -631,11 +708,54 @@ const Context = ({ children })=>{
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     // Состояние для активной категории товаров
     const [activeCategory, setActiveCategory] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("");
+    const [favorites, setFavorites] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     // Преобразование данных корзины
     const processedItems = cartItems?.map((item)=>({
             ...item,
             price: Number(item.price)
         })) || [];
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        const favoritesCookie = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$cookie$2f$dist$2f$js$2e$cookie$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].get('favorites');
+        if (favoritesCookie) {
+            try {
+                setFavorites(JSON.parse(favoritesCookie));
+            } catch (error) {
+                console.error('Ошибка при загрузке избранного:', error);
+            }
+        }
+    }, []);
+    // Сохранение избранного в куки при изменении
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (favorites.length > 0) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$cookie$2f$dist$2f$js$2e$cookie$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].set('favorites', JSON.stringify(favorites), {
+                expires: 30
+            });
+        } else {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$js$2d$cookie$2f$dist$2f$js$2e$cookie$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].remove('favorites');
+        }
+    }, [
+        favorites
+    ]);
+    // Добавление в избранное
+    const addToFavorites = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((item)=>{
+        setFavorites((prev)=>{
+            const isAlreadyFavorite = prev.some((fav)=>fav.id === item.id);
+            return isAlreadyFavorite ? prev : [
+                ...prev,
+                item
+            ];
+        });
+    }, []);
+    // Удаление из избранного
+    const removeFromFavorites = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        setFavorites((prev)=>prev.filter((item)=>item.id !== id));
+    }, []);
+    // Проверка, есть ли товар в избранном
+    const isItemInFavorites = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((id)=>{
+        return favorites.some((item)=>item.id === id);
+    }, [
+        favorites
+    ]);
     // Загрузка данных из API
     const fetchData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
         setLoading(true);
@@ -762,7 +882,11 @@ const Context = ({ children })=>{
         activeCategory,
         setActiveCategory,
         loading,
-        error
+        error,
+        favorites,
+        addToFavorites,
+        removeFromFavorites,
+        isItemInFavorites
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CartContext.Provider, {
         value: value,
@@ -771,7 +895,7 @@ const Context = ({ children })=>{
                 className: "loader"
             }, void 0, false, {
                 fileName: "[project]/src/widgets/context/ui/context.tsx",
-                lineNumber: 191,
+                lineNumber: 236,
                 columnNumber: 18
             }, this) : children,
             error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -781,13 +905,13 @@ const Context = ({ children })=>{
                 children: error
             }, void 0, false, {
                 fileName: "[project]/src/widgets/context/ui/context.tsx",
-                lineNumber: 192,
+                lineNumber: 237,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/widgets/context/ui/context.tsx",
-        lineNumber: 190,
+        lineNumber: 235,
         columnNumber: 5
     }, this);
 };

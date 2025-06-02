@@ -1,0 +1,26 @@
+/* [project]/src/views/catalog/ui/catalog.css [app-client] (css) */
+.categories span {
+  color: #000;
+  padding: 20px 0;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+.classes {
+  text-align: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  column-gap: 65px;
+  display: flex;
+}
+
+.classes img {
+  cursor: pointer;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: flex;
+}
+
+/*# sourceMappingURL=src_views_catalog_ui_catalog_css_f9ee138c._.single.css.map*/

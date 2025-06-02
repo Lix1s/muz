@@ -12,7 +12,7 @@ import { UserDTO } from "@internal/dto/dto.user";
 export const Home = () => {
   return (
     <>
-      <ExHeader />
+      {/* <ExHeader /> */}
       <Banner />
       <Rec />
       <Ad />

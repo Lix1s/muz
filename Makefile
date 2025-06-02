@@ -1,17 +1,20 @@
-.DEFAULT_GOAL=up
+.DEFAULT_GOAL := up
 
+# Проверка ОС (для поддержки WSL)
 ifeq ($(OS),Windows_NT)
-    WSL=wsl
+    DOCKER_COMPOSE = docker-compose
+else
+    DOCKER_COMPOSE = docker compose
 endif
 
 prod:
-	docker-compose -f docker-compose.prod.yml up --build
-.PHONY: up
+	$(DOCKER_COMPOSE) -f docker-compose.prod.yml up --build
+.PHONY: prod
 
 up:
-	docker-compose -f docker-compose.dev.yml up
+	$(DOCKER_COMPOSE) -f docker-compose.dev.yml up
 .PHONY: up
 
 down:
-	docker-compose -f docker-compose.dev.yml down
+	$(DOCKER_COMPOSE) -f docker-compose.dev.yml down
 .PHONY: down

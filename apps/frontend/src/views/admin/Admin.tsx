@@ -1,3 +1,4 @@
+"use client"
 import React, { useContext, useState } from 'react';
 import './admin.css';
 
@@ -274,3 +275,231 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+
+
+// "use client"
+// import React, { useContext, useState } from 'react';
+// import './admin.css';
+// import { CartContext } from '../../widgets/context/ui/context';
+// import { useForm } from 'react-hook-form';
+
+// const Admin = () => {
+//   const { items, addProduct, updateProduct, deleteProduct } = useContext(CartContext);
+//   const [imageUrl, setImageUrl] = useState('');
+//   const [updateImageUrl, setUpdateImageUrl] = useState('');
+//   const [deleteInput, setDeleteInput] = useState(''); // Изменили на общее поле для ID/названия
+//   const [deleteError, setDeleteError] = useState('');
+//   const [deleteMethod, setDeleteMethod] = useState('id'); // 'id' или 'title'
+
+//   // Форма для добавления товара
+//   const {
+//     register: addRegister,
+//     handleSubmit: handleAddSubmit,
+//     formState: { errors: addErrors },
+//     reset: resetAddForm,
+//   } = useForm({
+//     defaultValues: { category: '', title: '', price: 0 },
+//     mode: 'onChange',
+//   });
+
+//   // Форма для обновления товара
+//   const {
+//     register: updateRegister,
+//     handleSubmit: handleUpdateSubmit,
+//     formState: { errors: updateErrors },
+//     reset: resetUpdateForm,
+//   } = useForm({
+//     defaultValues: { id: '', category: '', title: '', price: 0 },
+//     mode: 'onChange',
+//   });
+
+//   // Состояния для удаления товара
+//   const [deleteId, setDeleteId] = useState('');
+
+
+//   // Функция загрузки изображения при добавлении
+//   const handleImageUpload = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       if (file.size > 5 * 1024 * 1024) {
+//         alert('Изображение слишком большое, выберите файл меньше 5 МБ');
+//         return;
+//       }
+
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setImageUrl(reader.result); // Сохраняем URL изображения
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   // Функция загрузки изображения при обновлении
+//   const handleUpdateImageUpload = (e) => {
+//     const file = e.target.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+//       reader.onloadend = () => {
+//         setUpdateImageUrl(reader.result); // Сохраняем URL изображения
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   };
+
+//   // Добавление продукта
+//   const handleAdd = async (data) => {
+//     try {
+//       const productWithId = { ...data, id: Date.now(), imageUrl };
+//       await addProduct(productWithId);
+//       resetAddForm();
+//       setImageUrl('');
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
+
+//   // Обновление продукта
+//   const handleUpdate = async (data) => {
+//     if (!data.id) {
+//       setDeleteError('Введите ID продукта для обновления.');
+//       return;
+//     }
+
+//     try {
+//       const updatedProduct = {
+//         title: data.title,
+//         category: data.category,
+//         price: data.price,
+//         imageUrl: updateImageUrl || data.imageUrl,
+//       };
+
+//       await updateProduct(data.id, updatedProduct);
+//       resetUpdateForm();
+//       setUpdateImageUrl('');
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   };
+
+//   // Удаление продукта
+//   const handleDelete = async () => {
+//     if (!deleteInput) {
+//       setDeleteError(`Введите ${deleteMethod === 'id' ? 'ID' : 'название'} продукта для удаления.`);
+//       return;
+//     }
+
+//     try {
+//       let productToDelete;
+      
+//       if (deleteMethod === 'id') {
+//         // Удаление по ID
+//         productToDelete = items.find(item => item.id.toString() === deleteInput);
+//       } else {
+//         // Удаление по названию (точное совпадение)
+//         productToDelete = items.find(item => 
+//           item.title.toLowerCase() === deleteInput.toLowerCase()
+//         );
+//       }
+
+//       if (!productToDelete) {
+//         throw new Error('Товар не найден');
+//       }
+
+//       await deleteProduct(productToDelete.id);
+//       setDeleteInput('');
+//       setDeleteError('');
+//     } catch (e) {
+//       setDeleteError(`Ошибка: товар с ${deleteMethod === 'id' ? 'ID' : 'названием'} "${deleteInput}" не найден.`);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <section className="admin">
+//         <div className="container">
+//           {/* ... остальные секции остаются без изменений ... */}
+
+//           {/* Удаление товара - обновлённая версия */}
+//           <div className="crud-section">
+//             <h2>Удалить продукт</h2>
+            
+//             <div className="delete-method-selector">
+//               <label>
+//                 <input
+//                   type="radio"
+//                   name="deleteMethod"
+//                   value="id"
+//                   checked={deleteMethod === 'id'}
+//                   onChange={() => setDeleteMethod('id')}
+//                 />
+//                 По ID
+//               </label>
+//               <label>
+//                 <input
+//                   type="radio"
+//                   name="deleteMethod"
+//                   value="title"
+//                   checked={deleteMethod === 'title'}
+//                   onChange={() => setDeleteMethod('title')}
+//                 />
+//                 По названию
+//               </label>
+//             </div>
+
+//             <input
+//               type={deleteMethod === 'id' ? 'number' : 'text'}
+//               placeholder={`Введите ${deleteMethod === 'id' ? 'ID' : 'название'} продукта`}
+//               value={deleteInput}
+//               onChange={(e) => setDeleteInput(e.target.value)}
+//               className="form-control-item"
+//             />
+            
+//             {deleteError && <p className="check">{deleteError}</p>}
+            
+//             <button className="CRUD-btn" onClick={handleDelete}>
+//               Удалить продукт
+//             </button>
+//           </div>
+
+//           {/* Список товаров */}
+//           <div className="crud-section">
+//             <h2>Список товаров</h2>
+//             {items.length > 0 ? (
+//               <table className="product-table">
+//                 <thead>
+//                   <tr className="shapka">
+//                     <th>ID</th>
+//                     <th>Название</th>
+//                     <th>Категория</th>
+//                     <th>Цена</th>
+//                     <th>Изображение</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                   {items.map((item) => (
+//                     <tr key={item.id}>
+//                       <td>{item.id}</td>
+//                       <td>{item.title}</td>
+//                       <td>{item.category}</td>
+//                       <td>{item.price} руб.</td>
+//                       <td>
+//                         <img src={item.imageUrl} alt={item.title} width="50" height="50" />
+//                       </td>
+//                     </tr>
+//                   ))}
+//                 </tbody>
+//               </table>
+//             ) : (
+//               <p>Список товаров пуст</p>
+//             )}
+//           </div>
+//         </div>
+//       </section>
+      
+//     </>
+//   );
+// };
+
+// export default Admin;

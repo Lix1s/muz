@@ -9,7 +9,7 @@ const Ad = () => {
         {/* <span>Наши бренды</span>
                 <img src='img/pic/brands.svg' alt="banner"></img>  */}
 
-        <img src="img/pic/ad-takamine.svg" alt="banner"></img>
+        <img src="/pic/ad-takamine.svg" alt="banner"></img>
       </div>
     </section>
   );

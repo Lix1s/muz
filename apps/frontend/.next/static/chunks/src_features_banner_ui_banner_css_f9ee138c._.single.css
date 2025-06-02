@@ -11,21 +11,11 @@
   align-items: center;
   width: 360px;
   height: 110px;
-  margin-top: 290px;
+  margin-top: -200px;
   margin-left: 35px;
   line-height: 40px;
   display: flex;
   position: absolute;
-}
-
-.start-buy {
-  text-align: left;
-  color: #fff;
-  float: left;
-  word-break: normal;
-  font-size: 38px;
-  font-weight: bolder;
-  display: flex;
 }
 
 .arrow {

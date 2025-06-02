@@ -12,12 +12,27 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$widgets$2f$context$2f$index$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$module__evaluation$3e$__ = __turbopack_context__.i("[project]/src/widgets/context/index.ts [app-ssr] (ecmascript) <module evaluation>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$widgets$2f$context$2f$ui$2f$context$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/widgets/context/ui/context.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
+"use client";
 ;
 ;
 ;
-function GuitarCard({ id, imageUrl, category, title, price }) {
-    const { onAddToCart, isItemInCart } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$widgets$2f$context$2f$ui$2f$context$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAppContext"])(); // Получаем функции из контекста
-    const isAdded = isItemInCart(title); // Проверяем, добавлен ли товар в корзину по title
+function GuitarCard({ id, imageUrl, category, title, price = 0 }) {
+    const { onAddToCart, isItemInCart, addToFavorites, removeFromFavorites, isItemInFavorites } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$widgets$2f$context$2f$ui$2f$context$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useAppContext"])();
+    const isAdded = isItemInCart(title);
+    const isFavorite = isItemInFavorites(id);
+    const toggleFavorite = ()=>{
+        if (isFavorite) {
+            removeFromFavorites(id);
+        } else {
+            addToFavorites({
+                id,
+                imageUrl,
+                category,
+                title,
+                price
+            });
+        }
+    };
     const onAdd = ()=>{
         onAddToCart({
             id,
@@ -25,10 +40,11 @@ function GuitarCard({ id, imageUrl, category, title, price }) {
             category,
             title,
             price
-        }); // Добавляем товар в корзину
+        });
     };
-    // Форматируем цену с разделением тысяч
-    const formattedPrice = price.toLocaleString("ru-RU");
+    // Добавляем проверку на undefined и преобразование к числу
+    const safePrice = Number(price) || 0;
+    const formattedPrice = safePrice.toLocaleString("ru-RU");
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "card",
         children: [
@@ -41,31 +57,56 @@ function GuitarCard({ id, imageUrl, category, title, price }) {
                         alt: "products"
                     }, void 0, false, {
                         fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                        lineNumber: 32,
+                        lineNumber: 47,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                    lineNumber: 31,
+                    lineNumber: 46,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                lineNumber: 30,
+                lineNumber: 45,
+                columnNumber: 7
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                onClick: toggleFavorite,
+                className: "favorite-button",
+                children: isFavorite ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                    className: "img5",
+                    src: "/icons/onFavourite.svg",
+                    alt: "Remove from Favorites"
+                }, void 0, false, {
+                    fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                    lineNumber: 53,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                    className: "img5",
+                    src: "/icons/favourite.svg",
+                    alt: "Add to Favorites"
+                }, void 0, false, {
+                    fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                    lineNumber: 55,
+                    columnNumber: 11
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                lineNumber: 51,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                 children: category
             }, void 0, false, {
                 fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                lineNumber: 35,
+                lineNumber: 59,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                 children: title
             }, void 0, false, {
                 fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                lineNumber: 36,
+                lineNumber: 60,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("b", {
@@ -75,21 +116,51 @@ function GuitarCard({ id, imageUrl, category, title, price }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                lineNumber: 37,
+                lineNumber: 61,
                 columnNumber: 7
             }, this),
-            " ",
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                className: "add"
+                className: "add",
+                children: !isAdded ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                    onClick: ()=>onAdd(),
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        className: "img2",
+                        src: "/pictures/toCart.svg",
+                        alt: "Add to Cart"
+                    }, void 0, false, {
+                        fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                        lineNumber: 65,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                    lineNumber: 64,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                    href: "/cart",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                        className: "img2",
+                        src: "/pictures/inCart.svg",
+                        alt: "In Cart"
+                    }, void 0, false, {
+                        fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                        lineNumber: 69,
+                        columnNumber: 13
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
+                    lineNumber: 68,
+                    columnNumber: 11
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-                lineNumber: 38,
+                lineNumber: 62,
                 columnNumber: 7
             }, this)
         ]
     }, id, true, {
         fileName: "[project]/src/entities/guitar/ui/guitar-card.tsx",
-        lineNumber: 29,
+        lineNumber: 44,
         columnNumber: 5
     }, this);
 }

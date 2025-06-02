@@ -2,13 +2,13 @@
   border: 1px solid #d3d3d3;
   padding: 15px;
   width: 336px;
-  height: 497px;
+  height: 540px;
   border-radius: 8px;
   background-color: rgb(255, 255, 255);
   /* box-shadow: 0.01px 0.01px 6px rgba(0, 0, 0, 0.178); */
   /* box-shadow: -2px 3px 4px rgba(0, 0, 0, 0.178); */
   transition: all 0.3s ease;
-
+  
   margin-bottom: 20px;
 }
 
@@ -19,6 +19,11 @@
   transition: all 0.3s ease;
 }
 
+.favourite {
+  display: flex;
+  align-items: center;
+
+}
 .card p {
   color: #868686;
   padding-top: 25px;

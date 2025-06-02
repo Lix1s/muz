@@ -1,0 +1,49 @@
+/* [project]/src/views/CheckOut/checkout.css [app-client] (css) */
+.checkout {
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+}
+
+.bye {
+  max-width: 600px;
+}
+
+.text1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  line-height: 1.5;
+}
+
+.text1 p {
+  margin: 10px 0;
+}
+
+.back {
+  color: #fff;
+  cursor: pointer;
+  background-color: #0098c8;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  display: inline-block;
+}
+
+.back:hover {
+  background-color: #007ea6;
+}
+
+.back a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/*# sourceMappingURL=src_views_CheckOut_checkout_cce9bca1.css.map*/

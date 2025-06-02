@@ -1,0 +1,53 @@
+/* [project]/src/views/aboutUs/ui/aboutUs.css [app-client] (css) */
+.about {
+  min-height: 710px;
+}
+
+.map {
+  justify-content: center;
+  padding-bottom: 21px;
+  display: flex;
+}
+
+.aftermap {
+  padding-top: 15px;
+}
+
+.aftermap p {
+  color: #7e7e7e;
+  padding-bottom: 35px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.last p {
+  color: #7e7e7e;
+  padding-bottom: 15px;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.span {
+  padding-top: 21px;
+  padding-bottom: 21px;
+  font-size: 25px;
+  font-weight: 600;
+  display: flex;
+}
+
+.contact {
+  padding-top: 21px;
+  padding-bottom: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+}
+
+.messagers2 {
+  column-gap: 10px;
+  padding-bottom: 35px;
+  display: flex;
+}
+
+
+/*# sourceMappingURL=src_views_aboutUs_ui_aboutUs_4d8c1916.css.map*/

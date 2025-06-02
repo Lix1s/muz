@@ -127,6 +127,21 @@
   border-radius: 8px;
   height: 220px;
 }
+.cart-content {
+  display: flex;
+  gap: 20px; /* Отступ между items и order-block */
+}
+
+.items {
+  flex: 1; /* Занимает все доступное пространство */
+  /* остальные ваши стили для items */
+}
+
+.order-block {
+  width: 380px; /* Фиксированная ширина */
+  flex-shrink: 0; /* Запрещаем сжатие */
+  /* остальные ваши стили для order-block */
+}
 
 .cart-main {
   display: flex;
