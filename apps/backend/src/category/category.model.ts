@@ -4,7 +4,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString } from 'class-validator';
 import { HydratedDocument } from 'mongoose';
 import { User } from '~/auth/auth.model';
-import { SwaggerID, SwaggerNumber, SwaggerPrice, SwaggerValue } from '~/swager/swager.decorators';
+import { SwaggerID, SwaggerNumber, SwaggerValue } from '~/swager/swager.decorators';
 
 export type CategoryDocument = HydratedDocument<Category>;
 
