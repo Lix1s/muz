@@ -18,7 +18,6 @@ const AboutUs = () => {
               src="https://yandex.ru/map-widget/v1/?um=constructor%3A038f3149c35e15480a9716cc31b5cdb1e4102f7a8d0304706309a1918b4f316b&amp;source=constructor"
               width="1440"
               height="600"
-              frameborder="0"
             ></iframe>
           </div>
           <div className="aftermap">

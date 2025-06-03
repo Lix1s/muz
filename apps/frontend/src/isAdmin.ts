@@ -8,7 +8,7 @@ const isAdmin = () => {
 
   try {
     const decoded = jwtDecode(token);
-    return decoded.role === "admin";
+    return (decoded as any).role === "admin";
   } catch (e) {
     console.error("Invalid token", e);
     return false;

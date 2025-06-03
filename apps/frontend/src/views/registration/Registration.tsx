@@ -35,7 +35,7 @@ const Registration = () => {
 
 
   const onSubmitRegister = async (values) => {
-    const resultAction = await dispatch(fetchRegister(values));
+    const resultAction = await dispatch(fetchRegister(values) as any);
     if (fetchRegister.fulfilled.match(resultAction)) {
       setRegisteredEmail(values.email);
       setStep('verify');

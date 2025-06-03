@@ -100,7 +100,7 @@ const authSlice = createSlice({
         (action) => action.type.endsWith('/fulfilled'),
         (state, action) => {
           state.status = 'succeeded';
-          state.data = action.payload;
+          state.data = (action as any).payload;
         }
       )
       
@@ -109,7 +109,7 @@ const authSlice = createSlice({
         (action) => action.type.endsWith('/rejected'),
         (state, action) => {
           state.status = 'failed';
-          state.error = action.payload?.message || 'Произошла ошибка';
+          state.error = (action as any).payload?.message || 'Произошла ошибка';
         }
       );
   }

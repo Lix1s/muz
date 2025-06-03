@@ -3,14 +3,14 @@ import './categories.css';
 
 import { Component } from 'react';
 import React, { useContext, useState } from 'react';
-import { CartContext } from '../../widgets/context/ui/context';
+import { CartContext, useAppContext } from '../../widgets/context/ui/context';
 import './categories.css';
 import axios from 'axios';
 
 
 
 const Categories = () => {
-  const { activeCategory, setActiveCategory } = useContext(CartContext);
+  const { activeCategory, setActiveCategory } = useAppContext();
 
   const handleCategoryClick = (category) => {
     setActiveCategory(category);

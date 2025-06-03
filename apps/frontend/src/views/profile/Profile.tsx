@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAuthMe } from '../../redux/slices/auth'
-import { AppDispatch, RootState } from '../../redux/store'
 import Link from 'next/link'
 import './profile.css'
 
@@ -19,8 +18,8 @@ interface UserData {
 }
 
 const Profile = () => {
-  const dispatch = useDispatch<AppDispatch>()
-  const { data: userData, status } = useSelector((state: RootState) => state.auth)
+  const dispatch = useDispatch<any>()
+  const { data: userData, status } = useSelector((state: any) => state.auth)
 
   useEffect(() => {
     if (status === 'idle') {

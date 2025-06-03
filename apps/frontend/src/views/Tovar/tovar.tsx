@@ -1,12 +1,12 @@
 "use client"
 import React, { useContext } from 'react';
-import { CartContext } from '../../widgets/context/ui/context';
+import { CartContext, useAppContext } from '../../widgets/context/ui/context';
 import { useParams } from 'next/navigation';
 import './tovar.css';
 import Link from 'next/link';
 
 const Tovar = () => {
-  const { items, onAddToCart, isItemInCart } = useContext(CartContext);
+  const { items, onAddToCart, isItemInCart } = useAppContext();
   const params = useParams(); // Получаем параметры через useParams из next/navigation
   const title = params?.title; // Достаем title из параметров
 

@@ -40,7 +40,7 @@ export const Login = () => {
       }
 
       // Отправляем запрос через Redux
-      const action = await dispatch(fetchAuth(authData))
+      const action = await dispatch(fetchAuth(authData) as any)
       const data = action.payload
 
       if (!data) {

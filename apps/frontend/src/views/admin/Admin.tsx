@@ -2,11 +2,11 @@
 import React, { useContext, useState } from 'react';
 import './admin.css';
 
-import { CartContext } from '../../widgets/context/ui/context';
+import { CartContext, useAppContext } from '../../widgets/context/ui/context';
 import { useForm } from 'react-hook-form';
 
 const Admin = () => {
-  const { items, addProduct, updateProduct, deleteProduct } = useContext(CartContext);
+  const { items, addProduct, updateProduct, deleteProduct } = useAppContext();
 
   // Состояния для изображений
   const [imageUrl, setImageUrl] = useState('');
@@ -49,7 +49,7 @@ const Admin = () => {
 
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result); // Сохраняем URL изображения
+        setImageUrl(reader.result as any); // Сохраняем URL изображения
       };
       reader.readAsDataURL(file);
     }
@@ -61,7 +61,7 @@ const Admin = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUpdateImageUrl(reader.result); // Сохраняем URL изображения
+        setUpdateImageUrl(reader.result as any); // Сохраняем URL изображения
       };
       reader.readAsDataURL(file);
     }
@@ -158,7 +158,7 @@ const Admin = () => {
               {/* Загрузка изображения */}
               <input type="file" onChange={handleImageUpload} className="form-control-item" />
               {imageUrl && <img src={imageUrl} alt="Предпросмотр" width="100" />}
-              {addErrors.image && <p className="check">{addErrors.image.message}</p>}
+              {(addErrors as any).image && <p className="check">{(addErrors as any).image.message}</p>}
 
               <button type="submit" className="CRUD-btn">
                 Добавить продукт
@@ -211,7 +211,7 @@ const Admin = () => {
               {/* Загрузка нового изображения */}
               <input type="file" onChange={handleUpdateImageUpload} className="form-control-item" />
               {updateImageUrl && <img src={updateImageUrl} alt="Предпросмотр" width="100" />}
-              {updateErrors.image && <p className="check">{updateErrors.image.message}</p>}
+              {(updateErrors as any).image && <p className="check">{(updateErrors as any).image.message}</p>}
 
               <button type="submit" className="CRUD-btn">
                 Обновить продукт
