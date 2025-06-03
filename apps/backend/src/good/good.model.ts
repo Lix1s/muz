@@ -6,7 +6,7 @@ import { IsNumber, IsString } from 'class-validator';
 import mongoose, { HydratedDocument } from 'mongoose';
 import { User } from '~/auth/auth.model';
 import { Category } from '~/category/category.model';
-import { SwaggerID, SwaggerNumber, SwaggerPrice, SwaggerValue } from '~/swager/swager.decorators';
+import { SwaggerID, SwaggerNumber, SwaggerValue } from '~/swager/swager.decorators';
 
 export type GoodDocument = HydratedDocument<Good>;
 
@@ -20,7 +20,7 @@ export class CreateGood implements CreateGoodDTO {
   name: string;
 
   @IsNumber()
-  @SwaggerPrice()
+  @SwaggerValue()
   price: number;
 
   @IsString()
@@ -38,7 +38,7 @@ export class Good implements GoodDTO {
   name: string;
 
   @Prop({ type: Number })
-  @SwaggerPrice()
+  @SwaggerValue()
   price: number;
 
   @Prop()
