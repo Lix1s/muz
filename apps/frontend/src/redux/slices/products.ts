@@ -14,7 +14,7 @@ const initialState = {
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducer: {},
+  reducers: {},
 });
 
 export const productsReducer = productsSlice.reducer;

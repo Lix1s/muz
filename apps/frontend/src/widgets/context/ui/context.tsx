@@ -4,6 +4,7 @@ import React, { useState, createContext, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Item, CartItem, ContextType } from "#/types";
 import { createUseContext } from "#/shared/utils";
+import Cookies from 'js-cookie'; 
 
 export const CartContext = createContext<ContextType | null>(null);
 
@@ -22,12 +23,52 @@ export const Context: React.FC<Props> = ({ children }) => {
   // Состояние для активной категории товаров
   const [activeCategory, setActiveCategory] = useState<string>("");
 
+  const [favorites, setFavorites] = useState<Item[]>([]);
+
   // Преобразование данных корзины
   const processedItems =
     cartItems?.map((item) => ({
       ...item,
       price: Number(item.price),
     })) || [];
+
+  useEffect(() => {
+    const favoritesCookie = Cookies.get('favorites');
+    if (favoritesCookie) {
+      try {
+        setFavorites(JSON.parse(favoritesCookie));
+      } catch (error) {
+        console.error('Ошибка при загрузке избранного:', error);
+      }
+    }
+  }, []);
+
+  // Сохранение избранного в куки при изменении
+  useEffect(() => {
+    if (favorites.length > 0) {
+      Cookies.set('favorites', JSON.stringify(favorites), { expires: 30 });
+    } else {
+      Cookies.remove('favorites');
+    }
+  }, [favorites]);
+
+  // Добавление в избранное
+  const addToFavorites = useCallback((item: Item) => {
+    setFavorites(prev => {
+      const isAlreadyFavorite = prev.some(fav => fav.id === item.id);
+      return isAlreadyFavorite ? prev : [...prev, item];
+    });
+  }, []);
+
+  // Удаление из избранного
+  const removeFromFavorites = useCallback((id: string) => {
+    setFavorites(prev => prev.filter(item => item.id !== id));
+  }, []);
+
+  // Проверка, есть ли товар в избранном
+  const isItemInFavorites = useCallback((id: string) => {
+    return favorites.some(item => item.id === id);
+  }, [favorites]);
 
   // Загрузка данных из API
   const fetchData = useCallback(async () => {
@@ -184,6 +225,10 @@ export const Context: React.FC<Props> = ({ children }) => {
     setActiveCategory,
     loading,
     error,
+    favorites,
+    addToFavorites,
+    removeFromFavorites,
+    isItemInFavorites,
   };
 
   return (

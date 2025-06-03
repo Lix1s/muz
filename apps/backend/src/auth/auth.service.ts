@@ -20,6 +20,7 @@ import { VerifyEmailDTO } from '@internal/dto/dto.email';
 import { AuthCode } from '~/auth/auth.code.model';
 import { FilesService } from '~/files/files.service';
 import { YandexCloudService } from '~/yandex-cloud/yandex-cloud.service';
+import { HttpStatus } from '@nestjs/common';
 
 @Injectable()
 export class AuthService {
@@ -45,21 +46,39 @@ export class AuthService {
     return await this.userModel.findByIdAndUpdate(_id, { $set: { ...dto } }, { new: true });
   }
 
-  async createUser({ email, password }: CreateUser) {
+async createUser({ email, password, confirmPassword }: CreateUser) {
+    // 1. Проверка совпадения паролей
+    if (password !== confirmPassword) {
+    throw new HttpException(
+      { message: 'Пароли не совпадают' },
+      HttpStatus.BAD_REQUEST,
+    );
+  }
+
+    // 2. Проверка существования пользователя
     const userExists = await this.userModel.findOne({ email });
+    if (userExists) throw new HttpException({ message: 'Электронная почта уже существует' }, 400);
 
-    if (userExists) throw new HttpException({ message: 'email_busy' }, 400);
+    // 3. Хеширование пароля и создание пользователя
+    const user = await this.userModel.create({ 
+        email, 
+        password: bcrypt.hashSync(password) 
+    });
 
-    const user = await this.userModel.create({ email, password: bcrypt.hashSync(password) });
-
+    // 4. Генерация кода подтверждения
     const text = Math.random().toString(36).slice(4);
-
     await this.authCodeModel.create({ code: text, email });
 
-    this.mailerService.sendMail({ to: email, text });
+    // 5. Отправка email с кодом подтверждения
+    this.mailerService.sendMail({ 
+        to: email,
+        subject: 'Подтверждение регистрации',
+        text: `Ваш код подтверждения: ${text}`
+    });
 
+    // 6. Возврат данных пользователя с токенами
     return this.getAuthDTO(user);
-  }
+}
 
   async loginUser({ email, password }: LoginUser) {
     const user = await this.userModel.findOne({ email });
@@ -74,17 +93,18 @@ export class AuthService {
 
   async emailVerify({ code }: VerifyEmailDTO, { email }: UserDTO) {
     const initial = await this.authCodeModel.findOne({ email });
-
+console.log(initial)
     if (!initial) throw new HttpException({ message: 'unknown_user' }, 400);
 
     if (initial.code !== code) throw new HttpException({ message: 'false_code' }, 403);
-
+    
     await this.authCodeModel.deleteOne({ _id: initial._id });
 
     await this.userModel.updateOne({ email }, { confirm: true });
 
     return { message: 'email_confirmed' };
   }
+
 
   getUser(req: RequestExpress) {
     const token = req.headers.authorization;

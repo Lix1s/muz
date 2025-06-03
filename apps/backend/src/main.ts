@@ -20,9 +20,20 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
-  app.enableCors({
-    origin: '*',
-    exposedHeaders: ['x-total', 'x-count'],
+   app.enableCors({
+    origin: true, // Или конкретные домены ['http://localhost:3000']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept',
+      'Origin',
+      'Access-Control-Allow-Headers'
+    ],
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
   });
 
   const document = SwaggerModule.createDocument(app, config);

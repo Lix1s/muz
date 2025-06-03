@@ -1,10 +1,9 @@
 import { AuthDTO, RefreshDTO } from '@internal/dto/dto.auth';
 import { CreateUserDTO, LoginUserDTO, UserDTO } from '@internal/dto/dto.user';
-
 import { VerifyEmailDTO } from '@internal/dto/dto.email';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsEmail, isObject, IsObject, IsArray, IsOptional } from 'class-validator';
+import { IsString, IsEmail, Equals } from 'class-validator';
 import mongoose, { HydratedDocument } from 'mongoose';
 import {
   SwaggerEmail,
@@ -14,14 +13,21 @@ import {
   SwaggerValue,
 } from '~/swager/swager.decorators';
 import { RoleDTO } from '@internal/dto/dto.role';
+import { Match } from './match.decorator';
 
 export class CreateUser implements CreateUserDTO {
   @SwaggerEmail()
   @IsEmail()
   email: string;
+
   @SwaggerPassword()
   @IsString()
   password: string;
+
+  @SwaggerPassword()
+  @IsString()
+  @Match('password', { message: 'Пароли должны совпадать' }) // Используем @Match вместо @Equals
+  confirmPassword: string;
 }
 
 export class VerifyEmail implements VerifyEmailDTO {
@@ -34,6 +40,7 @@ export class LoginUser implements LoginUserDTO {
   @SwaggerEmail()
   @IsEmail()
   email: string;
+
   @SwaggerPassword()
   @IsString()
   password: string;
@@ -70,8 +77,10 @@ export const userSchema = SchemaFactory.createForClass(User);
 export class Auth implements AuthDTO {
   @ApiProperty({ example: 'access token', description: 'Access token' })
   access: string;
+  
   @ApiProperty({ example: 'refresh token', description: 'Refresh token' })
   refresh: string;
+  
   @ApiProperty({ type: User, description: 'User' })
   user: UserDTO;
 }

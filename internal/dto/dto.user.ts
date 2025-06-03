@@ -6,8 +6,10 @@ export interface UserDTO {
   password: string;
   confirm: boolean;
   role: RoleDTO;
+  
 }
 
-export interface CreateUserDTO extends Omit<UserDTO, "role" | "_id" | "confirm"> {}
+export interface CreateUserDTO extends Omit<UserDTO, "role" | "_id" | "confirm"> { password: string;
+  confirmPassword: string;}
 
 export interface LoginUserDTO extends Omit<UserDTO, "role" | "_id" | "confirm"> {}

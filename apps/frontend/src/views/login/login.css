@@ -13,6 +13,7 @@
   justify-content: center;
   font-weight: 700;
   font-size: 16px;
+  height: 690px;
 }
 
 .registration-cssave {
@@ -81,9 +82,10 @@
   border-color: #0098c8; /* Цвет рамки при фокусе */
 }
 
-.register a {
-  text-decoration: none;
+.register-link span {
+   text-decoration: none;
   color: #0098c8;
+  font-weight: 500;
 }
 
 .register {

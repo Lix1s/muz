@@ -1,6 +1,0 @@
-{
-  "version": 3,
-  "sources": [],
-  "sections": [
-    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/features/banner/ui/banner.css"],"sourcesContent":[".banner {\n  display: flex;\n  text-align: center;\n  align-items: center;\n  padding-top: 33px;\n}\n\n.start-buy {\n}\n\n.btn-start {\n  display: flex;\n  margin-left: 35px;\n\n  line-height: 40px;\n  align-items: center;\n  border-radius: 21px;\n  width: 360px;\n  position: absolute;\n  height: 110px;\n  margin-top: 290px;\n}\n\n.start-buy {\n  display: flex;\n  text-align: left;\n\n  color: white;\n\n  float: left;\n  word-break: normal;\n  font-size: 38px;\n  font-weight: bolder;\n}\n\n.arrow {\n  display: flex;\n  padding-right: 35px;\n}\n"],"names":[],"mappings":"AAAA;;;;;;;AAUA;;;;;;;;;;;;AAaA;;;;;;;;;;AAYA"}}]
-}

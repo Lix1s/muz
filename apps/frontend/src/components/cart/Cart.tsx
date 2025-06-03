@@ -1,3 +1,4 @@
+"use client"
 import './cart.css';
 
 import CartItem from '../cartItem/CartItem';

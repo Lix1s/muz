@@ -26,7 +26,7 @@ export function Header() {
         <div className="container2">
           <div className="header_row">
             <div className="header__logo">
-              <img src="/icons/NewLogo4.png" alt="Logo" />
+            <img src="/logo/NewLogo4.png" alt="Logo" />
               <Link href="/">
                 {" "}
                 <span>
@@ -53,6 +53,13 @@ export function Header() {
               <ul>
                 {isAuth ? (
                   <>
+                  <Link href="/favourite">
+                      <button className="trash_can">
+                        Избранное
+                        <img src="/icons/favourite.svg" alt="can" />
+                      </button>
+                    </Link>
+
                     <Link href="/cart">
                       <button className="trash_can">
                         Корзина
@@ -72,6 +79,12 @@ export function Header() {
                   </>
                 ) : (
                   <>
+                  <Link href="/favourite">
+                      <button className="trash_can">
+                        Избранное
+                        <img src="/icons/favourite.svg" alt="can" />
+                      </button>
+                    </Link>
                     <button className="trash_can">
                       <Link href="/cart">Корзина </Link>
                       <img src="/icons/cartIcon.png" alt="can" />
