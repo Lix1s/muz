@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack:///[project]/src/views/catalog/ui/catalog.css"],"sourcesContent":[".categories {\n}\n\n.categories span {\n  display: flex;\n  font-size: 25px;\n  font-weight: 600;\n  color: black;\n  padding: 20px 0;\n}\n.classes {\n  display: flex;\n  flex-wrap: wrap;\n  display: flex;\n  text-align: center;\n  justify-content: center;\n  align-items: center;\n\n  column-gap: 65px;\n  flex-wrap: wrap;\n}\n\n.classes img {\n  display: flex;\n  margin-bottom: 20px;\n  border-radius: 8px;\n  cursor: pointer;\n}\n"],"names":[],"mappings":"AAGA;;;;;;;;AAOA;;;;;;;;;AAYA"}}]
+}
