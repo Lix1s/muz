@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-    volumes: 
+    volumes:
       - ./internal:/app/internal
     ports:
       - "3000:3000"
@@ -30,7 +30,7 @@ services:
     ports:
       - "3002:3002"
     restart: always
-  
+
   swag:
     image: lscr.io/linuxserver/swag:latest
     container_name: cool_swag
@@ -41,7 +41,7 @@ services:
       - PUID=1001
       - PGID=1001
       - TZ=Asia/Omsk
-      - URL=re-works.ru
+      - URL=accord-guitar.ru
       - VALIDATION=http
     volumes:
       - ./swag:/config
@@ -49,7 +49,7 @@ services:
       - 443:443
       - 80:80
     restart: unless-stopped
-    
+
   mongo:
     image: mongo
     container_name: mongo_backend
